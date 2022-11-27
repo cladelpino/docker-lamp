@@ -1,15 +1,10 @@
 #!/bin/bash
 docker-compose down
 relevantVolumeName="docker-lamp_persistent"
-htmlFolders=("www" "datos")
-sqldumpFolders=("dump")
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "************"
 echo "Script directory is $SCRIPT_DIR, this will be used as root for all paths"
 echo "************"
-for folder in ${htmlFolders[@]}; do
-  chmod -R 0777 $SCRIPT_DIR"/"$folder
-done
 existingVolumes=$(docker volume ls -q)
 if [[ "$existingVolumes" == *"$relevantVolumeName"* ]]; then
     echo "************"
@@ -56,6 +51,5 @@ if [[ $freshStart == 1 ]]; then
     done
     docker-compose down
 fi
-sed -i -e 's/^\([[:space:]]*\)\(-[[:space:]]*\.\/dumps:\/home\/dumps:ro[[:space:]]*\)$/\1#\2/g
-' docker-compose.yml
+sed -i -e 's/^\([[:space:]]*\)\(-[[:space:]]*\.\/dumps:\/home\/dumps:ro[[:space:]]*\)$/\1#\2/g' docker-compose.yml
 docker-compose up

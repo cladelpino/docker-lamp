@@ -13,7 +13,7 @@ services:
             - ./entrypoint:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
-            - ./dumps:/home/dumps:ro
+            #- ./dumps:/home/dumps:ro
         networks:
             - default
     phpmyadmin:
